@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+
+local: &local
+  <<: *default
+  host: 127.0.0.1
+  port: 5434
+  username: marketplace
+  password: <%= ENV.fetch("MARKETPLACE_DB_PASSWORD", "marketplace_local_password") %>
+
+development:
+  <<: *local
+  database: marketplace_development
+
+test:
+  <<: *local
+  database: marketplace_test
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>

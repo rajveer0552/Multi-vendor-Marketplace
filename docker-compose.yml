@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: marketplace-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: marketplace
+      POSTGRES_PASSWORD: marketplace_local_password
+      POSTGRES_DB: marketplace_development
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U marketplace -d marketplace_development"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  redis:
+    image: redis:7-alpine
+    container_name: marketplace-redis
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6380:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
