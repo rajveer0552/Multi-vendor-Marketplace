@@ -28,6 +28,13 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# User authentication
+gem "devise", "~> 4.9"
+
+gem "pundit", "~> 2.4"
+
+gem "json", "~> 2.0"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -64,5 +71,6 @@ group :test do
 end
 
 group :development do
+  gem "foreman", "~> 0.88", require: false
   gem "web-console"
 end
